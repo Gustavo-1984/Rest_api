@@ -15,9 +15,7 @@ exports.crearUsuario = async(req, res) => {
 
     try {
         //validar usuario existente
-        let user = await Usuario.findOne({
-            usuario,
-        });
+        let user = await Usuario.findOne({ where: { usuario } });
 
         if (user) {
             return res.status(400).json({
@@ -39,6 +37,8 @@ exports.crearUsuario = async(req, res) => {
         const payload = {
             user: {
                 id: user.id,
+                rol: user.rol,
+                usuario: user.usuario
             },
         };
 

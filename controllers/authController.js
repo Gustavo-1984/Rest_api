@@ -14,7 +14,7 @@ exports.autenticarUsuario = async(req, res) => {
     const { usuario, password } = req.body
 
     try {
-        let user = await Usuario.findOne({ usuario })
+        let user = await Usuario.findOne({ where: { usuario: req.body.usuario } })
         if (!user) {
             return res.status(400).json({ msg: 'El usuario no existe' })
         }
@@ -27,13 +27,15 @@ exports.autenticarUsuario = async(req, res) => {
         const payload = {
             user: {
                 id: user.id,
+                rol: user.rol,
+                usuario: user.usuario
             },
         };
 
         // firmar jwt
         jwt.sign(payload, "secreta", { expiresIn: "3d" }, (error, token) => {
             if (error) throw error;
-            res.json({ token });
+            res.json({ token, user });
         });
 
     } catch (error) {
