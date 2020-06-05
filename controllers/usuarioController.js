@@ -37,8 +37,6 @@ exports.crearUsuario = async(req, res) => {
         const payload = {
             user: {
                 id: user.id,
-                rol: user.rol,
-                usuario: user.usuario
             },
         };
 
