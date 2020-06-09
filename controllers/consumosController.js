@@ -21,8 +21,10 @@ exports.crearConsumo = async(req, res) => {
 
 exports.obtenerConsumos = async(req, res) => {
     try {
+
         const consumos = await Consumos.findAll({ where: { usuarioId: req.user.id } })
         res.json({ consumos })
+
     } catch (error) {
         console.log(error);
         res.status(500).send('Hubo un error')

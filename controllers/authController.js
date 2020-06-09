@@ -13,6 +13,7 @@ exports.autenticarUsuario = async(req, res) => {
     // extraer usuario y password del request
     const { usuario, password } = req.body
 
+
     try {
         let user = await Usuario.findOne({ where: { usuario } })
         if (!user) {
@@ -29,7 +30,7 @@ exports.autenticarUsuario = async(req, res) => {
                 id: user.id,
                 rol: user.rol,
                 usuario: user.usuario
-            },
+            }
         };
 
         // firmar jwt
@@ -37,7 +38,6 @@ exports.autenticarUsuario = async(req, res) => {
             if (error) throw error;
             res.json({ token });
         });
-
     } catch (error) {
         console.log(error);
     }
